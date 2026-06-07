@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rosetta Producciones — Producción de Eventos & Estructuras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0d0d0d;
+  --white: #FAFAF8;
+  --orange: #E05A1C;
+  --orange-dim: #B8451A;
+  --orange-deep: #7A2E0E;
+  --gray-1: #F2EDE6;
+  --gray-2: #E8E0D4;
+  --gray-3: #D0C5BA;
+  --gray-4: #9a8f84;
+  --gray-5: #6b5f56;
+  --gray-6: #4a3f38;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* —— SCROLLBAR —— */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--gray-1); }
+::-webkit-scrollbar-thumb { background: var(--orange-dim); border-radius: 2px; }
+
+/* —— NAV —— */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s, border-bottom 0.4s;
+}
+nav.scrolled {
+  background: rgba(250,250,248,0.97);
+  border-bottom: 1px solid var(--gray-3);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-decoration: none;
+}
+.nav-logo-main {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  line-height: 1;
+}
+.nav-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+}
+.nav-item {
+  position: relative;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(13,13,13,0.5);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+  border-radius: 4px;
+}
+.nav-link:hover { color: var(--black); }
+.nav-link svg {
+  width: 10px; height: 10px;
+  transition: transform 0.25s;
+  opacity: 0.5;
+}
+.nav-item.open .nav-link { color: var(--black); }
+.nav-item.open .nav-link svg { transform: rotate(180deg); opacity: 1; }
+
+/* Mega dropdown */
+.mega {
+  position: fixed;
+  background: #fff;
+  border: 1px solid var(--gray-3);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  border-radius: 10px;
+  padding: 24px;
+  display: none;
+  white-space: nowrap;
+  z-index: 9999;
+}
+.mega.right-align {
+  left: auto;
+  right: 0;
+  transform: translateY(-8px);
+}
+.mega.open {
+  display: block;
+}
+.mega-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+  margin-bottom: 14px;
+}
+.mega-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  min-width: 680px;
+}
+.mega-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  min-width: 380px;
+}
+.mega-item {
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-3);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.mega-item:hover {
+  background: var(--gray-2);
+  border-color: var(--gray-4);
+}
+.mega-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+  display: block;
+}
+.mega-item-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 3px;
+}
+.mega-item-sub {
+  font-size: 11px;
+  color: var(--gray-5);
+  line-height: 1.4;
+  white-space: normal;
+}
+.mega-divider {
+  border: none;
+  border-top: 1px solid var(--gray-3);
+  margin: 16px 0;
+}
+.mega-badge {
+  background: rgba(224,90,28,0.07);
+  border: 1px solid rgba(224,90,28,0.15);
+  border-radius: 6px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mega-badge-icon { font-size: 18px; }
+.mega-badge-title { font-size: 12px; font-weight: 500; color: var(--orange); }
+.mega-badge-sub { font-size: 11px; color: var(--gray-5); }
+.mega-event-list { display: flex; flex-direction: column; gap: 6px; }
+.mega-event-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--gray-3);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mega-event-item:hover { background: var(--gray-2); }
+.mega-event-icon { font-size: 16px; color: var(--gray-5); }
+.mega-event-title { font-size: 12px; font-weight: 500; color: var(--black); }
+.mega-event-sub { font-size: 11px; color: var(--gray-5); }
+.mega-footer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.mega-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gray-5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.mega-link:hover { color: var(--orange); }
+
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--orange);
+  color: #fff;
+  padding: 9px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.nav-cta:hover {
+  background: #cc5018;
+  transform: translateY(-1px);
+}
+
+/* —— HERO —— */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(250,250,248,1) 0%, rgba(250,250,248,0.5) 40%, rgba(250,250,248,0.05) 100%),
+    linear-gradient(135deg, #f5ede3 0%, #faf0e6 50%, #f5ede3 100%);
+  z-index: 0;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.hero-grid-lines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(224,90,28,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(224,90,28,0.07) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.hero-accent {
+  position: absolute;
+  top: 0; right: 0;
+  width: 40%; height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(224,90,28,0.05) 100%);
+  z-index: 0;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--orange);
+}
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 10vw, 130px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.9s 0.35s forwards;
+}
+.hero-headline span {
+  color: var(--orange);
+  display: block;
+}
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.55s forwards;
+}
+.hero-desc {
+  font-size: 15px;
+  color: rgba(13,13,13,0.5);
+  max-width: 380px;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex;
+  gap: 40px;
+}
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 44px;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+  margin-top: 4px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--orange), transparent);
+  animation: scrollLine 2s 1.5s infinite;
+}
+.hero-scroll-text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+}
+.hero-industries {
+  position: absolute;
+  top: 50%;
+  right: 48px;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 0.8s 0.8s forwards;
+}
+.ind-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--gray-3);
+  border-radius: 100px;
+  color: var(--gray-5);
+  cursor: pointer;
+  transition: all 0.25s;
+  white-space: nowrap;
+}
+.ind-pill:hover, .ind-pill.active {
+  border-color: var(--orange);
+  color: var(--orange);
+  background: rgba(224,90,28,0.06);
+}
+
+/* —— TRUST BAR —— */
+#trust {
+  border-top: 1px solid var(--gray-3);
+  border-bottom: 1px solid var(--gray-3);
+  background: #fff;
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  overflow: hidden;
+}
+.trust-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+.trust-stat + .trust-stat {
+  border-left: 1px solid var(--gray-3);
+}
+.trust-num {
+  font-family: var(--font-display);
+  font-size: 52px;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  line-height: 1;
+}
+.trust-info { display: flex; flex-direction: column; }
+.trust-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.trust-sub {
+  font-size: 12px;
+  color: var(--gray-5);
+}
+
+/* —— SECTION BASE —— */
+section {
+  padding: 100px 48px;
+}
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 40px;
+}
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--orange);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  color: var(--black);
+}
+.section-desc {
+  font-size: 15px;
+  color: var(--gray-5);
+  max-width: 360px;
+  line-height: 1.7;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* —— INDUSTRIAS —— */
+#industrias { background: #FAFAF8; padding-bottom: 0; }
+.ind-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--gray-3);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.ind-tab {
+  flex: 1;
+  padding: 16px 24px;
+  background: #fff;
+  border: none;
+  color: var(--gray-5);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-right: 1px solid var(--gray-3);
+}
+.ind-tab:last-child { border-right: none; }
+.ind-tab:hover { background: var(--gray-1); color: var(--black); }
+.ind-tab.active {
+  background: var(--orange);
+  color: #fff;
+  font-weight: 500;
+}
+.ind-tab .tab-icon { font-size: 16px; }
+.ind-panel { display: none; }
+.ind-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.ind-card {
+  background: #fff;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.2s;
+}
+.ind-card:hover { background: var(--gray-1); }
+.ind-card-icon { font-size: 32px; margin-bottom: 8px; }
+.ind-card-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.03em;
+  color: var(--black);
+}
+.ind-card-desc {
+  font-size: 14px;
+  color: var(--gray-5);
+  line-height: 1.7;
+}
+.ind-card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.ind-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--gray-3);
+  border-radius: 100px;
+  color: var(--gray-5);
+}
+.ind-card.featured { border-top: 2px solid var(--orange); }
+.ind-card.featured .ind-card-title { color: var(--orange); }
+
+/* —— SERVICIOS —— */
+#servicios { background: #F2EDE6; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--gray-3);
+  border: 1px solid var(--gray-3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.service-card {
+  background: #fff;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: left;
+}
+.service-card:hover { background: var(--gray-1); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-card-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gray-4);
+}
+.service-card-icon { font-size: 28px; margin: 4px 0; }
+.service-card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 0.03em;
+  color: var(--black);
+  line-height: 1;
+}
+.service-card-desc {
+  font-size: 13px;
+  color: var(--gray-5);
+  line-height: 1.6;
+}
+.service-card-items {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.service-item {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gray-4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.service-item::before {
+  content: '';
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--orange-dim);
+  flex-shrink: 0;
+}
+
+/* —— PORTAFOLIO —— */
+#portafolio { background: #FAFAF8; }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+}
+.pf-card {
+  background: var(--gray-2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.pf-card:hover { transform: scale(1.01); z-index: 2; }
+.pf-card.large { grid-column: span 5; grid-row: span 2; }
+.pf-card.medium { grid-column: span 4; grid-row: span 1; }
+.pf-card.small { grid-column: span 3; grid-row: span 1; }
+.pf-card.wide { grid-column: span 7; grid-row: span 1; }
+.pf-bg {
+  width: 100%;
+  padding-top: 75%;
+  position: relative;
+  background: var(--gray-2);
+  overflow: hidden;
+}
+.pf-card.large .pf-bg { padding-top: 100%; }
+.pf-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.pf-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: rgba(245,243,238,0.7);
+  transition: color 0.3s;
+}
+.pf-card:hover .pf-name { color: #fff; }
+.pf-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-top: 4px;
+}
+.pf-bg.lolla { background: linear-gradient(135deg, #1a0a00, #3d2a00); }
+.pf-bg.afterlife { background: linear-gradient(135deg, #000814, #001f3f); }
+.pf-bg.panamericanos { background: linear-gradient(135deg, #0a1a00, #1a3300); }
+.pf-bg.fauna { background: linear-gradient(135deg, #1a0010, #2d0020); }
+.pf-bg.heroes { background: linear-gradient(135deg, #0a0a1a, #15153d); }
+.pf-bg.nissan { background: linear-gradient(135deg, #1a1a00, #2d2d00); }
+.pf-bg-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  opacity: 0.2;
+}
+.pf-card.large .pf-bg-content { font-size: 100px; }
+
+/* —— DIFERENCIADORES —— */
+#diferenciadores {
+  background: var(--orange);
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+}
+#diferenciadores::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(8,8,8,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8,8,8,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.dif-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+.dif-item {
+  background: rgba(255,255,255,0.18);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+.dif-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.7; }
+.dif-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  line-height: 1.1;
+}
+.dif-desc {
+  font-size: 13px;
+  color: rgba(8,8,8,0.6);
+  line-height: 1.6;
+}
+
+/* —— CONTACTO —— */
+#contacto {
+  background: #F2EDE6;
+  padding: 100px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-left {}
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  color: var(--black);
+  margin-bottom: 24px;
+}
+.contact-title span { color: var(--orange); }
+.contact-desc {
+  font-size: 15px;
+  color: var(--gray-5);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+.contact-channels { display: flex; flex-direction: column; gap: 12px; }
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--gray-3);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  text-decoration: none;
+}
+.contact-channel:hover { border-color: var(--orange); }
+.contact-channel-icon { font-size: 18px; }
+.contact-channel-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+}
+.contact-channel-value {
+  font-size: 14px;
+  color: var(--black);
+  font-weight: 500;
+}
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+}
+.form-input, .form-select, .form-textarea {
+  background: #fff;
+  border: 1px solid var(--gray-3);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--orange);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--gray-4); }
+.form-select {
+  color: var(--black);
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.form-select option { background: #fff; }
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 32px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.form-submit:hover { background: #cc5018; transform: translateY(-1px); }
+
+/* —— FOOTER —— */
+footer {
+  background: var(--black);
+  border-top: 1px solid var(--gray-3);
+  padding: 48px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+.footer-logo { font-family: var(--font-display); font-size: 28px; letter-spacing: 0.1em; color: #FAFAF8; }
+.footer-sub { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--orange); text-transform: uppercase; margin-top: 4px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-link { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #888; cursor: pointer; transition: color 0.2s; text-decoration: none; }
+.footer-link:hover { color: #FAFAF8; }
+.footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--gray-4); }
+
+/* —— WHATSAPP FLOAT —— */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 52px; height: 52px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.wa-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.45);
+}
+
+/* —— ANIMATIONS —— */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+.mobile-menu { display: none; }
+.nav-hamburger { display: none; }
+
+/* ——————————————————————————————————————
+   RESPONSIVE — TABLET (max 1024px)
+—————————————————————————————————————— */
+@media (max-width: 1024px) {
+  nav { padding: 0 24px; }
+  #hero { padding: 0 24px 64px; }
+  .hero-industries { display: none; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-num { font-size: 36px; }
+
+  section { padding: 72px 24px; }
+
+  .section-header { flex-direction: column; gap: 16px; margin-bottom: 40px; }
+  .section-desc { max-width: 100%; }
+
+  #trust { padding: 24px; gap: 0; }
+  .trust-num { font-size: 40px; }
+
+  .ind-panel.active { grid-template-columns: 1fr 1fr; }
+
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .service-card:last-child { grid-column: span 2; }
+
+  .portfolio-grid { grid-template-columns: repeat(6, 1fr); }
+  .pf-card.large  { grid-column: span 3; grid-row: span 2; }
+  .pf-card.medium { grid-column: span 3; }
+  .pf-card.small  { grid-column: span 3; }
+  .pf-card.wide   { grid-column: span 6; }
+
+  .dif-grid { grid-template-columns: 1fr 1fr; }
+
+  #contacto { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+
+  footer { flex-direction: column; gap: 24px; align-items: flex-start; padding: 40px 24px; }
+}
+
+/* ——————————————————————————————————————
+   RESPONSIVE — MOBILE (max 768px)
+—————————————————————————————————————— */
+@media (max-width: 768px) {
+  nav { padding: 0 16px; height: 56px; }
+  .nav-center { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .mobile-menu {
+    position: fixed;
+    top: 56px; left: 0; right: 0; bottom: 0;
+    background: var(--gray-1);
+    z-index: 999;
+    padding: 24px 20px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-nav-section { border-bottom: 1px solid var(--gray-3); padding: 8px 0; }
+  .mobile-nav-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-5);
+    padding: 12px 4px 8px;
+  }
+  .mobile-nav-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 4px;
+    font-size: 15px;
+    color: var(--black);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: color 0.2s;
+  }
+  .mobile-nav-link:hover { color: var(--orange); }
+  .mobile-nav-link .mnl-icon { font-size: 18px; }
+  .mobile-nav-link .mnl-sub { font-size: 12px; color: var(--gray-5); margin-top: 1px; }
+  .mobile-cta {
+    margin-top: 24px;
+    background: var(--orange);
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--black);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  #hero { padding: 0 16px 56px; min-height: 100svh; justify-content: flex-end; }
+  .hero-headline { font-size: clamp(52px, 14vw, 72px); }
+  .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-num { font-size: 32px; }
+  .hero-desc { font-size: 14px; }
+
+  #trust { padding: 0; flex-direction: column; gap: 0; }
+  .trust-stat {
+    padding: 20px 20px;
+    justify-content: flex-start;
+    border-left: none;
+    border-bottom: 1px solid var(--gray-3);
+  }
+  .trust-stat:last-child { border-bottom: none; }
+  .trust-num { font-size: 36px; }
+
+  section { padding: 56px 16px; }
+  .section-header { margin-bottom: 32px; }
+  .section-title { font-size: clamp(36px, 11vw, 52px); }
+
+  .ind-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    border-radius: 0;
+    margin: 0 -16px 32px;
+    border-left: none;
+    border-right: none;
+  }
+  .ind-tabs::-webkit-scrollbar { display: none; }
+  .ind-tab { flex-shrink: 0; padding: 14px 18px; font-size: 11px; }
+  .ind-panel.active { grid-template-columns: 1fr; }
+  .ind-card { padding: 28px 20px; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card:last-child { grid-column: span 1; }
+  .service-card { padding: 28px 24px; }
+
+  .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .pf-card.large  { grid-column: span 2; grid-row: span 1; }
+  .pf-card.medium { grid-column: span 1; }
+  .pf-card.small  { grid-column: span 1; }
+  .pf-card.wide   { grid-column: span 2; }
+
+  #diferenciadores { padding: 56px 16px; }
+  .dif-grid { grid-template-columns: 1fr; gap: 2px; }
+  .dif-item { padding: 28px 20px; }
+
+  #contacto { padding: 56px 16px; grid-template-columns: 1fr; gap: 40px; }
+  .contact-title { font-size: clamp(36px, 11vw, 52px); }
+  .form-row { grid-template-columns: 1fr; }
+
+  footer { flex-direction: column; gap: 20px; padding: 32px 16px; align-items: flex-start; }
+  .footer-links { flex-wrap: wrap; gap: 16px; }
+
+  .wa-float { bottom: 16px; right: 16px; width: 46px; height: 46px; font-size: 20px; }
+}
+
+/* ——————————————————————————————————————
+   RESPONSIVE — SMALL MOBILE (max 420px)
+—————————————————————————————————————— */
+@media (max-width: 420px) {
+  .hero-headline { font-size: 52px; }
+  .hero-stats { flex-direction: column; gap: 12px; }
+  .trust-num { font-size: 32px; }
+  .section-title { font-size: 38px; }
+  .contact-title { font-size: 38px; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .pf-card.large, .pf-card.medium, .pf-card.small, .pf-card.wide {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Rosetta</span>
+    <span class="nav-logo-sub">Producciones</span>
+  </a>
+
+  <div class="nav-center">
+    <!-- Servicios -->
+    <div class="nav-item" id="ni-servicios">
+      <div class="nav-link" onclick="toggleNav('servicios')">
+        Servicios
+        <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mega" id="dd-servicios">
+        <div class="mega-label">Nuestros servicios</div>
+        <div class="mega-grid-3">
+          <div class="mega-item" onclick="scrollTo2('servicios')">
+            <span class="mega-icon">🏗️</span>
+            <div class="mega-item-title">Estructuras</div>
+            <div class="mega-item-sub">Escenarios, tarimas, torres, pórticos, graderías, ascensores</div>
+          </div>
+          <div class="mega-item" onclick="scrollTo2('servicios')">
+            <span class="mega-icon">⛺</span>
+            <div class="mega-item-title">Carpas</div>
+            <div class="mega-item-sub">Hasta 5.000 m² para eventos de cualquier escala</div>
+          </div>
+          <div class="mega-item" onclick="scrollTo2('servicios')">
+            <span class="mega-icon">⚡</span>
+            <div class="mega-item-title">Energía</div>
+            <div class="mega-item-sub">Generadores 30–1000 kVA, distribución eléctrica</div>
+          </div>
+          <div class="mega-item" onclick="scrollTo2('servicios')">
+            <span class="mega-icon">🚛</span>
+            <div class="mega-item-title">Logística</div>
+            <div class="mega-item-sub">Flota +10 camiones, cobertura nacional</div>
+          </div>
+        </div>
+        <div class="mega-divider"></div>
+        <div class="mega-badge">
+          <span class="mega-badge-icon">🔒</span>
+          <div>
+            <div class="mega-badge-title">Equipos 100% propios</div>
+            <div class="mega-badge-sub">Sin intermediarios · Disponibilidad garantizada 24/7</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industrias -->
+    <div class="nav-item" id="ni-industrias">
+      <div class="nav-link" onclick="toggleNav('industrias')">
+        Industrias
+        <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mega" id="dd-industrias">
+        <div class="mega-label">¿En qué sector trabajas?</div>
+        <div class="mega-grid-2">
+          <div class="mega-item" onclick="activateTab('eventos')">
+            <span class="mega-icon">🎵</span>
+            <div class="mega-item-title">Eventos masivos</div>
+            <div class="mega-item-sub">Festivales, conciertos, runs deportivos</div>
+          </div>
+          <div class="mega-item" onclick="activateTab('mineria')">
+            <span class="mega-icon">⛏️</span>
+            <div class="mega-item-title">Minería e industria</div>
+            <div class="mega-item-sub">Estructuras industriales, generadores potentes</div>
+          </div>
+          <div class="mega-item" onclick="activateTab('corporativo')">
+            <span class="mega-icon">🏢</span>
+            <div class="mega-item-title">Corporativo</div>
+            <div class="mega-item-sub">Lanzamientos, convenciones, zona VIP</div>
+          </div>
+          <div class="mega-item" onclick="activateTab('deportivo')">
+            <span class="mega-icon">🏅</span>
+            <div class="mega-item-title">Deportivo</div>
+            <div class="mega-item-sub">Podios, graderías, logística en competencias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyectos -->
+    <div class="nav-item" id="ni-proyectos">
+      <div class="nav-link" onclick="toggleNav('proyectos')">
+        Proyectos
+        <svg viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="mega right-align" id="dd-proyectos">
+        <div class="mega-label">Portafolio destacado</div>
+        <div class="mega-event-list">
+          <div class="mega-event-item">
+            <span class="mega-event-icon">🎸</span>
+            <div>
+              <div class="mega-event-title">Lollapalooza 2024</div>
+              <div class="mega-event-sub">Escenario principal · Carpas VIP · Energía completa</div>
+            </div>
+          </div>
+          <div class="mega-event-item">
+            <span class="mega-event-icon">🌑</span>
+            <div>
+              <div class="mega-event-title">Afterlife Chile</div>
+              <div class="mega-event-sub">Estructuras · Tarimas · Distribución eléctrica</div>
+            </div>
+          </div>
+          <div class="mega-event-item">
+            <span class="mega-event-icon">🏆</span>
+            <div>
+              <div class="mega-event-title">Juegos Panamericanos</div>
+              <div class="mega-event-sub">Graderías oficiales · Tarimas de ceremonia</div>
+            </div>
+          </div>
+          <div class="mega-event-item">
+            <span class="mega-event-icon">🌿</span>
+            <div>
+              <div class="mega-event-title">Fauna Primavera</div>
+              <div class="mega-event-sub">Escenario · Estructuras VIP · Carpas</div>
+            </div>
+          </div>
+        </div>
+        <div class="mega-divider"></div>
+        <div class="mega-footer">
+          <span class="mega-link" onclick="scrollTo2('portafolio')">
+            Ver todos los proyectos →
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <div class="nav-link" onclick="scrollTo2('contacto')">Nosotros</div>
+    </div>
+  </div>
+
+  <a href="#contacto" class="nav-cta">Cotizar proyecto</a>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" style="display:none;">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-nav-section">
+    <div class="mobile-nav-title">Servicios</div>
+    <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
+      <span class="mnl-icon">🏗️</span>
+      <div><div>Estructuras</div><div class="mnl-sub">Escenarios, tarimas, torres, pórticos</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
+      <span class="mnl-icon">⛺</span>
+      <div><div>Carpas</div><div class="mnl-sub">Hasta 5.000 m²</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
+      <span class="mnl-icon">⚡</span>
+      <div><div>Energía</div><div class="mnl-sub">Generadores 30–1000 kVA</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
+      <span class="mnl-icon">🚛</span>
+      <div><div>Logística</div><div class="mnl-sub">+10 camiones propios, nacional</div></div>
+    </div>
+  </div>
+  <div class="mobile-nav-section">
+    <div class="mobile-nav-title">Por industria</div>
+    <div class="mobile-nav-link" onclick="closeMobile(); activateTab('eventos')">
+      <span class="mnl-icon">🎵</span>
+      <div><div>Eventos masivos</div><div class="mnl-sub">Festivales, conciertos, runs</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); activateTab('mineria')">
+      <span class="mnl-icon">⛏️</span>
+      <div><div>Minería e industria</div><div class="mnl-sub">Generadores, estructuras faenas</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); activateTab('corporativo')">
+      <span class="mnl-icon">🏢</span>
+      <div><div>Corporativo</div><div class="mnl-sub">Lanzamientos, convenciones</div></div>
+    </div>
+    <div class="mobile-nav-link" onclick="closeMobile(); activateTab('deportivo')">
+      <span class="mnl-icon">🏅</span>
+      <div><div>Deportivo</div><div class="mnl-sub">Graderías, pórticos, podios</div></div>
+    </div>
+  </div>
+  <div class="mobile-nav-section">
+    <div class="mobile-nav-title">Proyectos</div>
+    <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('portafolio')">
+      <span class="mnl-icon">🎸</span>
+      <div><div>Lollapalooza, Afterlife, Panamericanos...</div><div class="mnl-sub">Ver portafolio completo</div></div>
+    </div>
+  </div>
+  <div class="mobile-cta" onclick="closeMobile(); scrollTo2('contacto')">Cotizar proyecto →</div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-accent"></div>
+
+  <div class="hero-industries">
+    <div class="ind-pill active" onclick="activateTab('eventos')">🎵 Eventos</div>
+    <div class="ind-pill" onclick="activateTab('mineria')">⛏️ Minería</div>
+    <div class="ind-pill" onclick="activateTab('corporativo')">🏢 Corporativo</div>
+    <div class="ind-pill" onclick="activateTab('deportivo')">🏅 Deportivo</div>
+  </div>
+
+  <div class="hero-tag">Estructuras · Energía · Logística · Chile y el mundo</div>
+  <div class="hero-headline">
+    La infraestructura<br>
+    <span>detrás</span>
+    de los eventos más grandes
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-desc">
+      Somos la empresa detrás del escenario. Montamos, energizamos y trasladamos la infraestructura de los eventos más exigentes del país.
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">500+</div>
+        <div class="hero-stat-label">Eventos realizados</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5K m²</div>
+        <div class="hero-stat-label">Capacidad máx. carpa</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">1000kVA</div>
+        <div class="hero-stat-label">Generadores disponibles</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div id="trust">
+  <div class="trust-stat">
+    <div class="trust-num">15+</div>
+    <div class="trust-info">
+      <div class="trust-label">Años</div>
+      <div class="trust-sub">en la industria</div>
+    </div>
+  </div>
+  <div class="trust-stat">
+    <div class="trust-num">24/7</div>
+    <div class="trust-info">
+      <div class="trust-label">Servicio</div>
+      <div class="trust-sub">atención continua</div>
+    </div>
+  </div>
+  <div class="trust-stat">
+    <div class="trust-num">100%</div>
+    <div class="trust-info">
+      <div class="trust-label">Equipo propio</div>
+      <div class="trust-sub">sin intermediarios</div>
+    </div>
+  </div>
+  <div class="trust-stat">
+    <div class="trust-num">Norte–Sur</div>
+    <div class="trust-info">
+      <div class="trust-label">Cobertura</div>
+      <div class="trust-sub">todo Chile</div>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIAS -->
+<section id="industrias">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Por industria</div>
+      <div class="section-title">¿Qué tipo<br>de evento?</div>
+    </div>
+    <div class="section-desc">
+      Adaptamos cada solución al contexto específico de tu industria. No es lo mismo un festival que una faena minera.
+    </div>
+  </div>
+
+  <div class="ind-tabs reveal">
+    <button class="ind-tab active" onclick="activateTab('eventos')" id="tab-eventos">
+      <span class="tab-icon">🎵</span> Eventos masivos
+    </button>
+    <button class="ind-tab" onclick="activateTab('mineria')" id="tab-mineria">
+      <span class="tab-icon">⛏️</span> Minería e industria
+    </button>
+    <button class="ind-tab" onclick="activateTab('corporativo')" id="tab-corporativo">
+      <span class="tab-icon">🏢</span> Corporativo
+    </button>
+    <button class="ind-tab" onclick="activateTab('deportivo')" id="tab-deportivo">
+      <span class="tab-icon">🏅</span> Deportivo
+    </button>
+  </div>
+
+  <div id="panel-eventos" class="ind-panel active">
+    <div class="ind-card featured reveal">
+      <div class="ind-card-icon">🎸</div>
+      <div class="ind-card-title">Festivales y conciertos</div>
+      <div class="ind-card-desc">Construimos los escenarios de los eventos más grandes del país. Desde Lollapalooza hasta Afterlife, nuestra infraestructura ha soportado a las audiencias más exigentes.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Escenarios principales</span>
+        <span class="ind-tag">Carpas VIP</span>
+        <span class="ind-tag">Tarimas artistas</span>
+        <span class="ind-tag">Energía completa</span>
+        <span class="ind-tag">Zona VIP</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-1">
+      <div class="ind-card-icon">🏃</div>
+      <div class="ind-card-title">Runs y eventos deportivos masivos</div>
+      <div class="ind-card-desc">Pórticos de largada, arcos de meta, tarimas de premiación y graderías para competencias con miles de participantes.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Pórticos de largada</span>
+        <span class="ind-tag">Arcos de meta</span>
+        <span class="ind-tag">Graderías</span>
+        <span class="ind-tag">Pasarelas</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-2">
+      <div class="ind-card-icon">🪄</div>
+      <div class="ind-card-title">Ferias y exposiciones</div>
+      <div class="ind-card-desc">Carpas de hasta 5.000 m² configurables para cualquier distribución de stands, con generación eléctrica integrada.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Carpas 2.500–5.000 m²</span>
+        <span class="ind-tag">Distribución eléctrica</span>
+        <span class="ind-tag">Torres iluminación</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-3">
+      <div class="ind-card-icon">🎆</div>
+      <div class="ind-card-title">Shows y espectáculos</div>
+      <div class="ind-card-desc">Infraestructura de soporte para audio, luces y pirotecnia. Torres de rigging, estructuras de carga y transportes especializados.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Torres rigging</span>
+        <span class="ind-tag">Transportes especiales</span>
+        <span class="ind-tag">Ascensores de carga</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-mineria" class="ind-panel">
+    <div class="ind-card featured reveal">
+      <div class="ind-card-icon">⚡</div>
+      <div class="ind-card-title">Generación eléctrica industrial</div>
+      <div class="ind-card-desc">Generadores de 30 a 1.000 kVA para operaciones mineras y faenas industriales. Tableros de transferencia automática y distribución certificada.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Generadores 30–1000 kVA</span>
+        <span class="ind-tag">Tableros transferencia</span>
+        <span class="ind-tag">Certificados SEC</span>
+        <span class="ind-tag">Distribución eléctrica</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-1">
+      <div class="ind-card-icon">🏗️</div>
+      <div class="ind-card-title">Estructuras en faenas</div>
+      <div class="ind-card-desc">Plataformas de trabajo, andamios certificados y estructuras modulares para operaciones en terreno. Normativa vigente Sernageomin.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Andamios certificados</span>
+        <span class="ind-tag">Plataformas trabajo</span>
+        <span class="ind-tag">Normativa Sernageomin</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-2">
+      <div class="ind-card-icon">⛺</div>
+      <div class="ind-card-title">Carpas para campamentos</div>
+      <div class="ind-card-desc">Soluciones de refugio temporal para trabajadores en faenas remotas. Resistencia a vientos, lluvias y condiciones extremas del norte y sur de Chile.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Carpas industriales</span>
+        <span class="ind-tag">Resistencia extrema</span>
+        <span class="ind-tag">Campamentos remotos</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-3">
+      <div class="ind-card-icon">🚛</div>
+      <div class="ind-card-title">Logística y transporte</div>
+      <div class="ind-card-desc">Traslado de equipos pesados y materiales estructurales a cualquier punto del país. Flota propia asegurada.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Flota propia</span>
+        <span class="ind-tag">Cobertura nacional</span>
+        <span class="ind-tag">Cargas especiales</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-corporativo" class="ind-panel">
+    <div class="ind-card featured reveal">
+      <div class="ind-card-icon">🤝</div>
+      <div class="ind-card-title">Lanzamientos de producto</div>
+      <div class="ind-card-desc">Escenarios de alta gama para presentaciones de marca. Tarimas de diseño, zonas VIP e iluminación premium para audiencias corporativas exigentes.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Tarimas premium</span>
+        <span class="ind-tag">Zona VIP</span>
+        <span class="ind-tag">Iluminación profesional</span>
+        <span class="ind-tag">Montaje en 24h</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-1">
+      <div class="ind-card-icon">🤍</div>
+      <div class="ind-card-title">Convenciones y conferencias</div>
+      <div class="ind-card-desc">Carpas climatizadas y estructuras modulares para convenciones de empresas. Desde 200 hasta 5.000 personas.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Carpas climatizadas</span>
+        <span class="ind-tag">200–5000 personas</span>
+        <span class="ind-tag">Modular y flexible</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-2">
+      <div class="ind-card-icon">🎊</div>
+      <div class="ind-card-title">Aniversarios corporativos</div>
+      <div class="ind-card-desc">Producción integral para celebraciones de empresa. Escenarios, pistas de baile, tarimas de DJ y estructuras especiales.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Producción integral</span>
+        <span class="ind-tag">Personalizable</span>
+        <span class="ind-tag">Decoración estructural</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-3">
+      <div class="ind-card-icon">🏷️</div>
+      <div class="ind-card-title">Activaciones de marca</div>
+      <div class="ind-card-desc">Estructuras llamativas para activaciones en vía pública, malls y espacios abiertos. Pórticos de imagen, torres de banners y stands de gran formato.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Pórticos de imagen</span>
+        <span class="ind-tag">Stands gran formato</span>
+        <span class="ind-tag">Espacios abiertos</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-deportivo" class="ind-panel">
+    <div class="ind-card featured reveal">
+      <div class="ind-card-icon">🏅</div>
+      <div class="ind-card-title">Eventos oficiales</div>
+      <div class="ind-card-desc">Infraestructura certificada para competencias oficiales. Trabajamos en los Juegos Panamericanos 2023 con graderías y tarimas de ceremonia para miles de espectadores.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Graderías certificadas</span>
+        <span class="ind-tag">Tarimas ceremonia</span>
+        <span class="ind-tag">Normativa internacional</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-1">
+      <div class="ind-card-icon">⚽</div>
+      <div class="ind-card-title">Instalaciones temporales</div>
+      <div class="ind-card-desc">Vestuarios, zonas de calentamiento, carpas de prensa y estructuras temporales para estadios y recintos deportivos.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Vestuarios temporales</span>
+        <span class="ind-tag">Carpas de prensa</span>
+        <span class="ind-tag">Zonas técnicas</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-2">
+      <div class="ind-card-icon">🏔</div>
+      <div class="ind-card-title">Competencias outdoor</div>
+      <div class="ind-card-desc">Pasarelas, plataformas flotantes y estructuras para competencias acuáticas y de montaña. Diseño adaptable al terreno.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Pasarelas especiales</span>
+        <span class="ind-tag">Adaptables terreno</span>
+        <span class="ind-tag">Montaje rápido</span>
+      </div>
+    </div>
+    <div class="ind-card reveal reveal-delay-3">
+      <div class="ind-card-icon">🏽</div>
+      <div class="ind-card-title">Carreras y maratones</div>
+      <div class="ind-card-desc">Pórticos de largada y meta, zonas de hidratación estructuradas y podios de premiación para carreras populares y élite.</div>
+      <div class="ind-card-tags">
+        <span class="ind-tag">Pórticos largada/meta</span>
+        <span class="ind-tag">Podios premiación</span>
+        <span class="ind-tag">Zonas hidratación</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Catálogo completo</div>
+      <div class="section-title">Lo que<br>tenemos</div>
+    </div>
+    <div class="section-desc">
+      Todo es propio. Nada subcontratado. Eso nos permite garantizar disponibilidad y calidad en cada proyecto.
+    </div>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-card-num">01</div>
+      <div class="service-card-icon">🏗️</div>
+      <div class="service-card-title">Estructuras</div>
+      <div class="service-card-desc">Sistemas de andamio modular certificados para cargas de escenario, audio y luces.</div>
+      <div class="service-card-items">
+        <div class="service-item">Tarimas de escenario</div>
+        <div class="service-item">Escenarios principales</div>
+        <div class="service-item">Pórticos y torres</div>
+        <div class="service-item">Pasarelas</div>
+        <div class="service-item">Graderías</div>
+        <div class="service-item">Ascensores de carga</div>
+        <div class="service-item">Zona VIP</div>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-card-num">02</div>
+      <div class="service-card-icon">⛺</div>
+      <div class="service-card-title">Carpas</div>
+      <div class="service-card-desc">Carpas industriales de gran superficie para eventos, ferias e instalaciones temporales.</div>
+      <div class="service-card-items">
+        <div class="service-item">Carpa 2.500 m²</div>
+        <div class="service-item">Carpa 5.000 m²</div>
+        <div class="service-item">Resistente al viento</div>
+        <div class="service-item">Climatización</div>
+        <div class="service-item">Piso técnico opcional</div>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-card-num">03</div>
+      <div class="service-card-icon">⚡</div>
+      <div class="service-card-title">Energía</div>
+      <div class="service-card-desc">Soluciones eléctricas completas desde la generación hasta la distribución final en cada punto.</div>
+      <div class="service-card-items">
+        <div class="service-item">Generadores 30–1000 kVA</div>
+        <div class="service-item">Distribución eléctrica</div>
+        <div class="service-item">Torres de iluminación</div>
+        <div class="service-item">Tableros transferencia</div>
+        <div class="service-item">Pasacables</div>
+      </div>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-card-num">04</div>
+      <div class="service-card-icon">🚛</div>
+      <div class="service-card-title">Logística</div>
+      <div class="service-card-desc">Flota propia de más de 10 camiones para traslado de equipos a cualquier punto del país, con seguro incluido.</div>
+      <div class="service-card-items">
+        <div class="service-item">+10 camiones propios</div>
+        <div class="service-item">Cobertura nacional</div>
+        <div class="service-item">Cargas especiales</div>
+        <div class="service-item">Seguro de carga incluido</div>
+        <div class="service-item">Coordinación 24/7</div>
+        <div class="service-item">Montajistas en terreno</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTAFOLIO -->
+<section id="portafolio">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">Nuestros proyectos</div>
+      <div class="section-title">Donde<br>estuvimos</div>
+    </div>
+    <div class="section-desc">
+      De Lollapalooza a los Juegos Panamericanos. Nuestras estructuras han soportado a las audiencias más grandes del país.
+    </div>
+  </div>
+
+  <div class="portfolio-grid reveal">
+    <div class="pf-card large">
+      <div class="pf-bg lolla">
+        <div class="pf-bg-content">🎸</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Lollapalooza 2024</div>
+        <div class="pf-meta">Festival · Escenario principal · Santiago</div>
+      </div>
+    </div>
+    <div class="pf-card medium">
+      <div class="pf-bg afterlife">
+        <div class="pf-bg-content">🌑</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Afterlife Chile</div>
+        <div class="pf-meta">Festival electrónico · Santiago</div>
+      </div>
+    </div>
+    <div class="pf-card small">
+      <div class="pf-bg nissan">
+        <div class="pf-bg-content">🚗</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Nissan Pavilion</div>
+        <div class="pf-meta">Corporativo · Activación</div>
+      </div>
+    </div>
+    <div class="pf-card wide">
+      <div class="pf-bg panamericanos">
+        <div class="pf-bg-content">🏆</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Juegos Panamericanos 2023</div>
+        <div class="pf-meta">Deportivo · Graderías oficiales · Santiago</div>
+      </div>
+    </div>
+    <div class="pf-card medium">
+      <div class="pf-bg fauna">
+        <div class="pf-bg-content">🌿</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Fauna Primavera</div>
+        <div class="pf-meta">Festival · Escenario + VIP</div>
+      </div>
+    </div>
+    <div class="pf-card small">
+      <div class="pf-bg heroes">
+        <div class="pf-bg-content">🏃</div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Héroes Run</div>
+        <div class="pf-meta">Deportivo · Pórticos + Meta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIADORES -->
+<div id="diferenciadores">
+  <div class="dif-grid">
+    <div class="dif-item reveal">
+      <div class="dif-icon">🔧</div>
+      <div class="dif-title">Equipos 100% propios</div>
+      <div class="dif-desc">Sin subcontratos. Controlamos cada pieza de equipo, lo que garantiza disponibilidad y calidad en todo momento.</div>
+    </div>
+    <div class="dif-item reveal reveal-delay-1">
+      <div class="dif-icon">🕐</div>
+      <div class="dif-title">Servicio 24 horas</div>
+      <div class="dif-desc">Los eventos no esperan. Nuestro equipo técnico está disponible las 24 horas del día, los 7 días de la semana.</div>
+    </div>
+    <div class="dif-item reveal reveal-delay-2">
+      <div class="dif-icon">👷</div>
+      <div class="dif-title">Personal certificado</div>
+      <div class="dif-desc">Montajistas, electricistas y operadores con certificaciones vigentes. Seguridad como prioridad absoluta en cada instalación.</div>
+    </div>
+    <div class="dif-item reveal reveal-delay-3">
+      <div class="dif-icon">🚛</div>
+      <div class="dif-title">+10 camiones propios</div>
+      <div class="dif-desc">Flota propia de más de 10 camiones. Traslado a cualquier punto del país con seguro de carga y coordinación 24/7.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-left reveal">
+    <div class="section-tag">Hablemos</div>
+    <div class="contact-title">
+      Cuéntanos<br>tu <span>proyecto</span>
+    </div>
+    <div class="contact-desc">
+      Sin importar el tamaño ni la industria, tenemos la infraestructura y la experiencia para hacerlo realidad.
+    </div>
+    <div class="contact-channels">
+      <a href="https://wa.me/56912345678" class="contact-channel">
+        <span class="contact-channel-icon">📱</span>
+        <div>
+          <div class="contact-channel-label">WhatsApp</div>
+          <div class="contact-channel-value">+56 9 1234 5678</div>
+        </div>
+      </a>
+      <a href="mailto:contacto@rosettaproducciones.com" class="contact-channel">
+        <span class="contact-channel-icon">✉️</span>
+        <div>
+          <div class="contact-channel-label">Email</div>
+          <div class="contact-channel-value">contacto@rosettaproducciones.com</div>
+        </div>
+      </a>
+      <a href="https://instagram.com/rosettaproducciones_" target="_blank" class="contact-channel">
+        <span class="contact-channel-icon">📸</span>
+        <div>
+          <div class="contact-channel-label">Instagram</div>
+          <div class="contact-channel-value">@rosettaproducciones_</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-form reveal reveal-delay-1">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-input" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Empresa</label>
+        <input type="text" class="form-input" placeholder="Nombre empresa">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" placeholder="correo@empresa.cl">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Industria</label>
+        <select class="form-select">
+          <option value="">Selecciona...</option>
+          <option>Eventos masivos</option>
+          <option>Minería e industria</option>
+          <option>Corporativo</option>
+          <option>Deportivo</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fecha estimada</label>
+        <input type="date" class="form-input">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Cuéntanos tu proyecto</label>
+      <textarea class="form-textarea" placeholder="Tipo de evento, cantidad de asistentes, lugar, qué servicios necesitas..."></textarea>
+    </div>
+    <button class="form-submit">
+      Enviar solicitud
+      <span>→</span>
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Rosetta</div>
+    <div class="footer-sub">Producciones · Desde 2008</div>
+  </div>
+  <div class="footer-links">
+    <span class="footer-link" onclick="scrollTo2('servicios')">Servicios</span>
+    <span class="footer-link" onclick="scrollTo2('portafolio')">Proyectos</span>
+    <span class="footer-link" onclick="scrollTo2('contacto')">Contacto</span>
+    <a href="https://instagram.com/rosettaproducciones_" target="_blank" class="footer-link">Instagram</a>
+  </div>
+  <div class="footer-copy">© 2025 Rosetta Producciones SpA · Todos los derechos reservados</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/56912345678" target="_blank" class="wa-float" title="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function checkMobile() {
+  var isMobile = window.innerWidth <= 768;
+  document.getElementById('hamburger').style.display = isMobile ? 'flex' : 'none';
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
+
+var mobileOpen = false;
+function toggleMobileMenu() {
+  mobileOpen = !mobileOpen;
+  document.getElementById('mobile-menu').classList.toggle('open', mobileOpen);
+  document.getElementById('hamburger').classList.toggle('open', mobileOpen);
+  document.body.style.overflow = mobileOpen ? 'hidden' : '';
+}
+function closeMobile() {
+  mobileOpen = false;
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+window.addEventListener('scroll', function() {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+  if (currentNav) {
+    var prev = document.getElementById('dd-' + currentNav);
+    if (prev) prev.classList.remove('open');
+    document.getElementById('ni-' + currentNav).classList.remove('open');
+    currentNav = null;
+  }
+}, { passive: true });
+
+var currentNav = null;
+function toggleNav(id) {
+  var item = document.getElementById('ni-' + id);
+  var dd = document.getElementById('dd-' + id);
+  if (!dd) return;
+  if (currentNav && currentNav !== id) {
+    var prev = document.getElementById('dd-' + currentNav);
+    if (prev) prev.classList.remove('open');
+    document.getElementById('ni-' + currentNav).classList.remove('open');
+  }
+  var isOpen = dd.classList.contains('open');
+  if (!isOpen) {
+    var rect = item.querySelector('.nav-link').getBoundingClientRect();
+    dd.style.top = (rect.bottom + 8) + 'px';
+    if (id === 'proyectos') {
+      dd.style.left = 'auto';
+      dd.style.right = (window.innerWidth - rect.right) + 'px';
+      dd.style.transform = 'none';
+    } else {
+      dd.style.left = (rect.left + rect.width / 2) + 'px';
+      dd.style.right = 'auto';
+      dd.style.transform = 'translateX(-50%)';
+    }
+    dd.classList.add('open');
+    item.classList.add('open');
+    currentNav = id;
+  } else {
+    dd.classList.remove('open');
+    item.classList.remove('open');
+    currentNav = null;
+  }
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.nav-item') && !e.target.closest('.mega')) {
+    if (currentNav) {
+      var prev = document.getElementById('dd-' + currentNav);
+      if (prev) prev.classList.remove('open');
+      document.getElementById('ni-' + currentNav).classList.remove('open');
+      currentNav = null;
+    }
+  }
+});
+
+function activateTab(id) {
+  document.querySelectorAll('.ind-tab').forEach(function(t) { t.classList.remove('active'); });
+  var tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('active');
+  document.querySelectorAll('.ind-panel').forEach(function(p) { p.classList.remove('active'); });
+  var panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  document.querySelectorAll('.ind-pill').forEach(function(p) { p.classList.remove('active'); });
+  if (currentNav) {
+    document.getElementById('ni-' + currentNav).classList.remove('open');
+    currentNav = null;
+  }
+  var sec = document.getElementById('industrias');
+  if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollTo2(id) {
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+  if (currentNav) {
+    document.getElementById('ni-' + currentNav).classList.remove('open');
+    currentNav = null;
+  }
+}
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(function(el) {
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
