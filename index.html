@@ -686,6 +686,7 @@ section {
   transition: transform 0.3s;
 }
 .pf-card:hover { transform: scale(1.01); z-index: 2; }
+.pf-card.hero { grid-column: span 12; grid-row: span 1; }
 .pf-card.large { grid-column: span 5; grid-row: span 2; }
 .pf-card.medium { grid-column: span 4; grid-row: span 1; }
 .pf-card.small { grid-column: span 3; grid-row: span 1; }
@@ -697,6 +698,7 @@ section {
   background: var(--gray-2);
   overflow: hidden;
 }
+.pf-card.hero .pf-bg { padding-top: 42%; }
 .pf-card.large .pf-bg { padding-top: 100%; }
 .pf-overlay {
   position: absolute;
@@ -1713,7 +1715,7 @@ footer {
   </div>
 
   <div class="portfolio-grid reveal">
-    <div class="pf-card large">
+    <div class="pf-card hero">
       <div class="pf-bg lolla">
         <div class="pf-bg-content"></div>
       </div>
@@ -1731,6 +1733,15 @@ footer {
         <div class="pf-meta">Festival electrónico · Santiago</div>
       </div>
     </div>
+    <div class="pf-card medium">
+      <div class="pf-bg panamericanos">
+        <div class="pf-bg-content"></div>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Juegos Panamericanos 2023</div>
+        <div class="pf-meta">Deportivo · Graderías oficiales · Santiago</div>
+      </div>
+    </div>
     <div class="pf-card small">
       <div class="pf-bg nissan">
         <div class="pf-bg-content"></div>
@@ -1738,15 +1749,6 @@ footer {
       <div class="pf-overlay">
         <div class="pf-name">Nissan Pavilion</div>
         <div class="pf-meta">Corporativo · Activación</div>
-      </div>
-    </div>
-    <div class="pf-card wide">
-      <div class="pf-bg panamericanos">
-        <div class="pf-bg-content"></div>
-      </div>
-      <div class="pf-overlay">
-        <div class="pf-name">Juegos Panamericanos 2023</div>
-        <div class="pf-meta">Deportivo · Graderías oficiales · Santiago</div>
       </div>
     </div>
     <div class="pf-card wide">
