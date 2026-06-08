@@ -1029,6 +1029,7 @@ footer {
   .nav-center { display: none; }
   .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
+  .nav-logo img { height: 30px; }
 
   .mobile-menu {
     position: fixed;
@@ -1136,11 +1137,13 @@ footer {
   .service-card:last-child { grid-column: span 1; }
   .service-card { padding: 28px 24px; }
 
-  .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; gap: 4px; }
-  .pf-card.c12 { grid-column: span 2; }
+  .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; gap: 3px; }
+  .pf-card.c12 { grid-column: span 2; grid-auto-rows: 240px; }
   .pf-card.c7, .pf-card.c6, .pf-card.c5 { grid-column: span 2; }
   .pf-card.c4, .pf-card.c3 { grid-column: span 1; }
   .pf-card.r2 { grid-row: span 1; }
+  .pf-name { font-size: 16px; }
+  .pf-meta { font-size: 9px; }
 
   #diferenciadores { padding: 56px 16px; }
   .dif-grid { grid-template-columns: 1fr; gap: 2px; }
@@ -1160,11 +1163,13 @@ footer {
    RESPONSIVE — SMALL MOBILE (max 420px)
 —————————————————————————————————————— */
 @media (max-width: 420px) {
-  .hero-headline { font-size: 52px; }
+  .hero-headline { font-size: 48px; }
   .hero-stats { flex-direction: column; gap: 12px; }
   .trust-num { font-size: 32px; }
-  .section-title { font-size: 38px; }
-  .contact-title { font-size: 38px; }
+  .section-title { font-size: 36px; }
+  .contact-title { font-size: 36px; }
+  .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .pf-card[class*="c"] { grid-column: span 1; }
   .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
   .pf-card[class*="c"], .pf-card.r2 {
     grid-column: span 1;
@@ -1442,7 +1447,7 @@ footer {
 </div>
 
 <!-- VIDEO CORPORATIVO -->
-<div id="video-corporativo" style="position:relative;width:100%;aspect-ratio:16/9;background:#0d0d0d;overflow:hidden;">
+<div id="video-corporativo" style="position:relative;width:100%;aspect-ratio:16/9;max-height:95vh;background:#0d0d0d;overflow:hidden;">
   <video id="corp-video" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <source src="Assets Videos/Video corporativo rosetta.mp4" type="video/mp4">
   </video>
