@@ -2159,15 +2159,20 @@ window.addEventListener('scroll', function() {
 }, { passive: true });
 
 var currentNav = null;
+function closeAllNav() {
+  if (currentNav) {
+    var prev = document.getElementById('dd-' + currentNav);
+    if (prev) prev.classList.remove('open');
+    var ni = document.getElementById('ni-' + currentNav);
+    if (ni) ni.classList.remove('open');
+    currentNav = null;
+  }
+}
 function toggleNav(id) {
   var item = document.getElementById('ni-' + id);
   var dd = document.getElementById('dd-' + id);
   if (!dd) return;
-  if (currentNav && currentNav !== id) {
-    var prev = document.getElementById('dd-' + currentNav);
-    if (prev) prev.classList.remove('open');
-    document.getElementById('ni-' + currentNav).classList.remove('open');
-  }
+  if (currentNav && currentNav !== id) closeAllNav();
   var isOpen = dd.classList.contains('open');
   if (!isOpen) {
     var rect = item.querySelector('.nav-link').getBoundingClientRect();
@@ -2185,20 +2190,11 @@ function toggleNav(id) {
     item.classList.add('open');
     currentNav = id;
   } else {
-    dd.classList.remove('open');
-    item.classList.remove('open');
-    currentNav = null;
+    closeAllNav();
   }
 }
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.nav-item') && !e.target.closest('.mega')) {
-    if (currentNav) {
-      var prev = document.getElementById('dd-' + currentNav);
-      if (prev) prev.classList.remove('open');
-      document.getElementById('ni-' + currentNav).classList.remove('open');
-      currentNav = null;
-    }
-  }
+  if (!e.target.closest('.nav-item')) closeAllNav();
 });
 
 function activateTab(id) {
@@ -2209,21 +2205,15 @@ function activateTab(id) {
   var panel = document.getElementById('panel-' + id);
   if (panel) panel.classList.add('active');
   document.querySelectorAll('.ind-pill').forEach(function(p) { p.classList.remove('active'); });
-  if (currentNav) {
-    document.getElementById('ni-' + currentNav).classList.remove('open');
-    currentNav = null;
-  }
+  closeAllNav();
   var sec = document.getElementById('industrias');
   if (sec) sec.scrollIntoView({ behavior: 'smooth' });
 }
 
 function scrollTo2(id) {
+  closeAllNav();
   var el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth' });
-  if (currentNav) {
-    document.getElementById('ni-' + currentNav).classList.remove('open');
-    currentNav = null;
-  }
 }
 
 var observer = new IntersectionObserver(function(entries) {
