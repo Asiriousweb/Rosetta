@@ -1917,16 +1917,16 @@ function toggleCorpMute() {
       </div>
     </div>
 
-    <!-- Fila 11: Rafael Nadal + Lift Elevador + Rampas Panamericanos -->
+    <!-- Fila 11: Cierre Perimetral + Lift Elevador + Rampas Panamericanos -->
     <div class="pf-card c5">
       <div class="pf-bg">
         <video autoplay muted loop playsinline>
-          <source src="Assets Videos/Graderia evento teniis rafael andal.mp4" type="video/mp4">
+          <source src="Assets Videos/Cierre perimetral aeropuerto juegos panamericanos.mp4" type="video/mp4">
         </video>
       </div>
       <div class="pf-overlay">
-        <div class="pf-name">Rafael Nadal en Chile</div>
-        <div class="pf-meta">Deportivo · Graderías · Estadio Nacional</div>
+        <div class="pf-name">Panamericanos 2023 — Cierre Perimetral</div>
+        <div class="pf-meta">Deportivo · Aeropuerto · Santiago 2023</div>
       </div>
     </div>
     <div class="pf-card c4">
@@ -1948,16 +1948,16 @@ function toggleCorpMute() {
       </div>
     </div>
 
-    <!-- Fila 12: Cierre perimetral Panamericanos -->
+    <!-- Fila 12: Rafael Nadal — ancho completo -->
     <div class="pf-card c12">
       <div class="pf-bg">
         <video autoplay muted loop playsinline>
-          <source src="Assets Videos/Cierre perimetral aeropuerto juegos panamericanos.mp4" type="video/mp4">
+          <source src="Assets Videos/Graderia evento teniis rafael andal.mp4" type="video/mp4">
         </video>
       </div>
       <div class="pf-overlay">
-        <div class="pf-name">Panamericanos 2023 — Cierre Perimetral Aeropuerto</div>
-        <div class="pf-meta">Deportivo · Infraestructura oficial · Santiago</div>
+        <div class="pf-name">Rafael Nadal en Chile</div>
+        <div class="pf-meta">Deportivo · Graderías · Estadio Nacional</div>
       </div>
     </div>
 
@@ -2025,25 +2025,42 @@ function toggleCorpMute() {
     </div>
   </div>
 
-  <div class="contact-form reveal reveal-delay-1">
+  <form class="contact-form reveal reveal-delay-1" action="https://formspree.io/f/contacto@rosettaproducciones.com" method="POST">
+    <!-- Campos de identificación -->
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Nombre</label>
-        <input type="text" class="form-input" placeholder="Tu nombre">
+        <input type="text" name="01 - Nombre" class="form-input" placeholder="Tu nombre" required>
       </div>
       <div class="form-group">
         <label class="form-label">Empresa</label>
-        <input type="text" class="form-input" placeholder="Nombre empresa">
+        <input type="text" name="02 - Empresa" class="form-input" placeholder="Nombre empresa">
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Email</label>
-      <input type="email" class="form-input" placeholder="correo@empresa.cl">
+      <input type="email" name="_replyto" class="form-input" placeholder="correo@empresa.cl" required>
     </div>
+    <!-- Resumen del proyecto — aparece primero en el correo -->
     <div class="form-row">
       <div class="form-group">
+        <label class="form-label">Tipo de evento</label>
+        <select name="03 - Tipo de evento" class="form-select" required>
+          <option value="">Selecciona...</option>
+          <option>Concierto / Festival</option>
+          <option>Lanzamiento de producto</option>
+          <option>Conferencia / Congreso</option>
+          <option>Activación de marca</option>
+          <option>Evento deportivo</option>
+          <option>Feria / Exposición</option>
+          <option>Graduación / Ceremonia</option>
+          <option>Faena industrial / Minería</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label class="form-label">Industria</label>
-        <select class="form-select">
+        <select name="04 - Industria" class="form-select">
           <option value="">Selecciona...</option>
           <option>Eventos masivos</option>
           <option>Minería e industria</option>
@@ -2052,25 +2069,11 @@ function toggleCorpMute() {
           <option>Otro</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Tipo de evento</label>
-        <select class="form-select">
-          <option value="">Selecciona...</option>
-          <option>Concierto / Festival</option>
-          <option>Conferencia / Congreso</option>
-          <option>Activación de marca</option>
-          <option>Evento deportivo</option>
-          <option>Feria / Exposición</option>
-          <option>Graduación / Ceremonia</option>
-          <option>Faena industrial</option>
-          <option>Otro</option>
-        </select>
-      </div>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Cantidad de asistentes</label>
-        <select class="form-select">
+        <select name="05 - Asistentes" class="form-select">
           <option value="">Selecciona...</option>
           <option>Menos de 500</option>
           <option>500 – 2.000</option>
@@ -2081,25 +2084,26 @@ function toggleCorpMute() {
       </div>
       <div class="form-group">
         <label class="form-label">Ciudad</label>
-        <input type="text" class="form-input" placeholder="Ej: Santiago, Antofagasta...">
+        <input type="text" name="06 - Ciudad" class="form-input" placeholder="Ej: Santiago, Antofagasta...">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Fecha estimada</label>
-        <input type="date" class="form-input">
+        <label class="form-label">Fecha estimada del evento</label>
+        <input type="date" name="07 - Fecha estimada" class="form-input">
       </div>
       <div class="form-group" style="visibility:hidden;"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Cuéntanos tu proyecto</label>
-      <textarea class="form-textarea" placeholder="Qué servicios necesitas, detalles adicionales..."></textarea>
+      <textarea name="08 - Detalle del proyecto" class="form-textarea" placeholder="Qué servicios necesitas, detalles adicionales..."></textarea>
     </div>
-    <button class="form-submit">
+    <input type="hidden" name="_subject" value="Nueva solicitud de cotización — Rosetta Producciones">
+    <button type="submit" class="form-submit">
       Enviar solicitud
       <span>→</span>
     </button>
-  </div>
+  </form>
 </section>
 
 <!-- FOOTER -->
