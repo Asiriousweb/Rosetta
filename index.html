@@ -943,6 +943,16 @@ section {
   font-weight: 500;
 }
 .contact-form { display: flex; flex-direction: column; gap: 16px; }
+.contact-form-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-5);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gray-3);
+  margin-bottom: 4px;
+}
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 8px; }
 .form-label {
@@ -2118,27 +2128,27 @@ function toggleCorpMute() {
     </div>
   </div>
 
-  <form class="contact-form reveal reveal-delay-1" action="https://formspree.io/f/contacto@rosettaproducciones.com" method="POST">
+  <form id="wa-form" class="contact-form reveal reveal-delay-1" onsubmit="enviarWhatsApp(event)">
+    <div class="contact-form-title">Formulario de cotización</div>
     <!-- Campos de identificación -->
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Nombre</label>
-        <input type="text" name="01 - Nombre" class="form-input" placeholder="Tu nombre" required>
+        <input type="text" id="f-nombre" class="form-input" placeholder="Tu nombre" required>
       </div>
       <div class="form-group">
         <label class="form-label">Empresa</label>
-        <input type="text" name="02 - Empresa" class="form-input" placeholder="Nombre empresa">
+        <input type="text" id="f-empresa" class="form-input" placeholder="Nombre empresa">
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Email</label>
-      <input type="email" name="_replyto" class="form-input" placeholder="correo@empresa.cl" required>
+      <input type="email" id="f-email" class="form-input" placeholder="correo@empresa.cl" required>
     </div>
-    <!-- Resumen del proyecto — aparece primero en el correo -->
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Tipo de evento</label>
-        <select name="03 - Tipo de evento" class="form-select" required>
+        <select id="f-tipo" class="form-select" required>
           <option value="">Selecciona...</option>
           <option>Concierto / Festival</option>
           <option>Lanzamiento de producto</option>
@@ -2153,7 +2163,7 @@ function toggleCorpMute() {
       </div>
       <div class="form-group">
         <label class="form-label">Industria</label>
-        <select name="04 - Industria" class="form-select">
+        <select id="f-industria" class="form-select">
           <option value="">Selecciona...</option>
           <option>Eventos masivos</option>
           <option>Minería e industria</option>
@@ -2166,7 +2176,7 @@ function toggleCorpMute() {
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Cantidad de asistentes</label>
-        <select name="05 - Asistentes" class="form-select">
+        <select id="f-asistentes" class="form-select">
           <option value="">Selecciona...</option>
           <option>Menos de 500</option>
           <option>500 – 2.000</option>
@@ -2177,26 +2187,54 @@ function toggleCorpMute() {
       </div>
       <div class="form-group">
         <label class="form-label">Ciudad</label>
-        <input type="text" name="06 - Ciudad" class="form-input" placeholder="Ej: Santiago, Antofagasta...">
+        <input type="text" id="f-ciudad" class="form-input" placeholder="Ej: Santiago, Antofagasta...">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Fecha estimada del evento</label>
-        <input type="date" name="07 - Fecha estimada" class="form-input">
+        <input type="date" id="f-fecha" class="form-input">
       </div>
       <div class="form-group" style="visibility:hidden;"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Cuéntanos tu proyecto</label>
-      <textarea name="08 - Detalle del proyecto" class="form-textarea" placeholder="Qué servicios necesitas, detalles adicionales..."></textarea>
+      <textarea id="f-detalle" class="form-textarea" placeholder="Qué servicios necesitas, detalles adicionales..."></textarea>
     </div>
-    <input type="hidden" name="_subject" value="Nueva solicitud de cotización — Rosetta Producciones">
     <button type="submit" class="form-submit">
-      Enviar solicitud
+      Enviar por WhatsApp
       <span>→</span>
     </button>
   </form>
+
+  <script>
+  function enviarWhatsApp(e) {
+    e.preventDefault();
+    var nombre     = document.getElementById('f-nombre').value.trim();
+    var empresa    = document.getElementById('f-empresa').value.trim();
+    var email      = document.getElementById('f-email').value.trim();
+    var tipo       = document.getElementById('f-tipo').value;
+    var industria  = document.getElementById('f-industria').value;
+    var asistentes = document.getElementById('f-asistentes').value;
+    var ciudad     = document.getElementById('f-ciudad').value.trim();
+    var fecha      = document.getElementById('f-fecha').value;
+    var detalle    = document.getElementById('f-detalle').value.trim();
+
+    var msg = '🏗️ *Nueva solicitud de cotización — Rosetta Producciones*\n\n';
+    msg += '👤 *Nombre:* ' + nombre + '\n';
+    if (empresa)    msg += '🏢 *Empresa:* ' + empresa + '\n';
+    msg += '📧 *Email:* ' + email + '\n';
+    if (tipo)       msg += '🎪 *Tipo de evento:* ' + tipo + '\n';
+    if (industria)  msg += '🏭 *Industria:* ' + industria + '\n';
+    if (asistentes) msg += '👥 *Asistentes:* ' + asistentes + '\n';
+    if (ciudad)     msg += '📍 *Ciudad:* ' + ciudad + '\n';
+    if (fecha)      msg += '📅 *Fecha estimada:* ' + fecha + '\n';
+    if (detalle)    msg += '\n💬 *Detalle del proyecto:*\n' + detalle;
+
+    var url = 'https://wa.me/56966789753?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
+  }
+  </script>
 </section>
 
 <!-- FOOTER -->
