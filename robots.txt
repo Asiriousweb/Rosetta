@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rosetta-ten.vercel.app/sitemap.xml
