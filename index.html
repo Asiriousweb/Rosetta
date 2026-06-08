@@ -753,6 +753,9 @@ section {
 .pf-bg.estadio      { background-image: url('Assets fotos/Torres de piso estadio nacional.jpg'); }
 .pf-bg.dunalaster   { background-image: url('Assets fotos/Tarima colegio Dunalaster.jpg'); }
 .pf-bg.lollakids    { background-image: url('Assets fotos/lollakids escenario para ninos.jpg'); }
+.pf-bg.vangogh      { background-image: url('Assets fotos/Foto evento vangogh.jpg'); }
+.pf-bg.camiones     { background-image: url('Assets fotos/Camiones Rosetta.jpg'); }
+.pf-bg.panamericanos2 { background-image: url('Assets fotos/ramplas aeropuerto juegos panamericanos.jpg'); }
 
 /* —— DIFERENCIADORES —— */
 #diferenciadores {
@@ -1784,7 +1787,11 @@ function toggleCorpMute() {
       </div>
     </div>
     <div class="pf-card c5">
-      <div class="pf-bg nissan"></div>
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline poster="Assets fotos/Evento nissan carpa.jpg">
+          <source src="Assets Videos/Video Evento Nissan.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="pf-overlay">
         <div class="pf-name">Nissan Pavilion</div>
         <div class="pf-meta">Corporativo · Carpa + Activación</div>
@@ -1887,6 +1894,70 @@ function toggleCorpMute() {
       <div class="pf-overlay">
         <div class="pf-name">Afterlife Chile</div>
         <div class="pf-meta">Festival electrónico · Escenario + Energía · Santiago</div>
+      </div>
+    </div>
+
+    <!-- Fila 10: Van Gogh + Camiones -->
+    <div class="pf-card c7">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline poster="Assets fotos/Foto evento vangogh.jpg">
+          <source src="Assets Videos/Video Evento Vangogh chile.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Van Gogh Alive Chile</div>
+        <div class="pf-meta">Exposición · Infraestructura + Logística</div>
+      </div>
+    </div>
+    <div class="pf-card c5">
+      <div class="pf-bg camiones"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Flota Propia Rosetta</div>
+        <div class="pf-meta">Logística · +10 camiones propios · Cobertura nacional</div>
+      </div>
+    </div>
+
+    <!-- Fila 11: Rafael Nadal + Lift Elevador + Rampas Panamericanos -->
+    <div class="pf-card c5">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline>
+          <source src="Assets Videos/Graderia evento teniis rafael andal.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Rafael Nadal en Chile</div>
+        <div class="pf-meta">Deportivo · Graderías · Estadio Nacional</div>
+      </div>
+    </div>
+    <div class="pf-card c4">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline>
+          <source src="Assets Videos/Concierto Cantante Lift Elevador.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Concierto — Lift Escénico</div>
+        <div class="pf-meta">Eventos · Elevador artista · Producción técnica</div>
+      </div>
+    </div>
+    <div class="pf-card c3">
+      <div class="pf-bg panamericanos2"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Panamericanos — Rampas</div>
+        <div class="pf-meta">Deportivo · Aeropuerto · Santiago 2023</div>
+      </div>
+    </div>
+
+    <!-- Fila 12: Cierre perimetral Panamericanos -->
+    <div class="pf-card c12">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline>
+          <source src="Assets Videos/Cierre perimetral aeropuerto juegos panamericanos.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="pf-overlay">
+        <div class="pf-name">Panamericanos 2023 — Cierre Perimetral Aeropuerto</div>
+        <div class="pf-meta">Deportivo · Infraestructura oficial · Santiago</div>
       </div>
     </div>
 
