@@ -675,10 +675,11 @@ section {
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 2px;
+  grid-auto-rows: 260px;
+  gap: 3px;
 }
 .pf-card {
-  background: var(--gray-2);
+  background: #111;
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -686,20 +687,31 @@ section {
   transition: transform 0.3s;
 }
 .pf-card:hover { transform: scale(1.01); z-index: 2; }
-.pf-card.hero { grid-column: span 12; grid-row: span 1; }
-.pf-card.large { grid-column: span 5; grid-row: span 2; }
-.pf-card.medium { grid-column: span 4; grid-row: span 1; }
-.pf-card.small { grid-column: span 3; grid-row: span 1; }
-.pf-card.wide { grid-column: span 7; grid-row: span 1; }
+/* tamaños de columna */
+.pf-card.c12 { grid-column: span 12; }
+.pf-card.c7  { grid-column: span 7; }
+.pf-card.c6  { grid-column: span 6; }
+.pf-card.c5  { grid-column: span 5; }
+.pf-card.c4  { grid-column: span 4; }
+.pf-card.c3  { grid-column: span 3; }
+/* tamaños de fila */
+.pf-card.r2 { grid-row: span 2; }
 .pf-bg {
-  width: 100%;
-  padding-top: 75%;
-  position: relative;
-  background: var(--gray-2);
-  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: transform 0.5s ease;
 }
-.pf-card.hero .pf-bg { padding-top: 42%; }
-.pf-card.large .pf-bg { padding-top: 100%; }
+.pf-card:hover .pf-bg { transform: scale(1.04); }
+.pf-bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .pf-overlay {
   position: absolute;
   inset: 0;
@@ -708,14 +720,13 @@ section {
   flex-direction: column;
   justify-content: flex-end;
   padding: 20px;
-  opacity: 1;
   transition: opacity 0.3s;
 }
 .pf-name {
   font-family: var(--font-display);
   font-size: 20px;
   letter-spacing: 0.05em;
-  color: rgba(245,243,238,0.7);
+  color: rgba(245,243,238,0.75);
   transition: color 0.3s;
 }
 .pf-card:hover .pf-name { color: #fff; }
@@ -727,22 +738,18 @@ section {
   color: var(--orange);
   margin-top: 4px;
 }
-.pf-bg.lolla { background: url('Assets fotos/Lollapalloza.jpg') center/cover no-repeat; }
-.pf-bg.afterlife { background: linear-gradient(135deg, #000814, #001f3f); }
-.pf-bg.panamericanos { background: linear-gradient(135deg, #0a1a00, #1a3300); }
-.pf-bg.fauna { background: linear-gradient(135deg, #1a0010, #2d0020); }
-.pf-bg.heroes { background: linear-gradient(135deg, #0a0a1a, #15153d); }
-.pf-bg.nissan { background: linear-gradient(135deg, #1a1a00, #2d2d00); }
-.pf-bg-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  opacity: 0.2;
-}
-.pf-card.large .pf-bg-content { font-size: 100px; }
+/* fondos */
+.pf-bg.lolla        { background-image: url('Assets fotos/Lollapalloza Escenario principal.jpg'); }
+.pf-bg.lolla2       { background-image: url('Assets fotos/Escenario dos Lollapalloza.jpg'); }
+.pf-bg.paulanka     { background-image: url('Assets fotos/PAUL ANKA EN CHILE.jpg'); }
+.pf-bg.nissan       { background-image: url('Assets fotos/Evento nissan carpa.jpg'); }
+.pf-bg.copas        { background-image: url('Assets fotos/Graderias Copa david.jpg'); }
+.pf-bg.cokestudio   { background-image: url('Assets fotos/festival coke studio chile.jpg'); }
+.pf-bg.generadores  { background-image: url('Assets fotos/Generadores energia.jpg'); }
+.pf-bg.vallenevado  { background-image: url('Assets fotos/Stand centro de evento valle nevado.jpg'); }
+.pf-bg.vendimia     { background-image: url('Assets fotos/Escenario Vendimia Valle del Maipo.jpg'); }
+.pf-bg.estadio      { background-image: url('Assets fotos/Torres de piso estadio nacional.jpg'); }
+.pf-bg.dunalaster   { background-image: url('Assets fotos/Tarima colegio Dunalaster.jpg'); }
 
 /* —— DIFERENCIADORES —— */
 #diferenciadores {
@@ -992,11 +999,14 @@ footer {
   .services-grid { grid-template-columns: 1fr 1fr; }
   .service-card:last-child { grid-column: span 2; }
 
-  .portfolio-grid { grid-template-columns: repeat(6, 1fr); }
-  .pf-card.large  { grid-column: span 3; grid-row: span 2; }
-  .pf-card.medium { grid-column: span 3; }
-  .pf-card.small  { grid-column: span 3; }
-  .pf-card.wide   { grid-column: span 6; }
+  .portfolio-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 220px; }
+  .pf-card.c12 { grid-column: span 6; }
+  .pf-card.c7  { grid-column: span 4; }
+  .pf-card.c6  { grid-column: span 3; }
+  .pf-card.c5  { grid-column: span 3; }
+  .pf-card.c4  { grid-column: span 3; }
+  .pf-card.c3  { grid-column: span 2; }
+  .pf-card.r2  { grid-row: span 2; }
 
   .dif-grid { grid-template-columns: 1fr 1fr; }
 
@@ -1120,11 +1130,11 @@ footer {
   .service-card:last-child { grid-column: span 1; }
   .service-card { padding: 28px 24px; }
 
-  .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
-  .pf-card.large  { grid-column: span 2; grid-row: span 1; }
-  .pf-card.medium { grid-column: span 1; }
-  .pf-card.small  { grid-column: span 1; }
-  .pf-card.wide   { grid-column: span 2; }
+  .portfolio-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; gap: 4px; }
+  .pf-card.c12 { grid-column: span 2; }
+  .pf-card.c7, .pf-card.c6, .pf-card.c5 { grid-column: span 2; }
+  .pf-card.c4, .pf-card.c3 { grid-column: span 1; }
+  .pf-card.r2 { grid-row: span 1; }
 
   #diferenciadores { padding: 56px 16px; }
   .dif-grid { grid-template-columns: 1fr; gap: 2px; }
@@ -1149,8 +1159,8 @@ footer {
   .trust-num { font-size: 32px; }
   .section-title { font-size: 38px; }
   .contact-title { font-size: 38px; }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .pf-card.large, .pf-card.medium, .pf-card.small, .pf-card.wide {
+  .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .pf-card[class*="c"], .pf-card.r2 {
     grid-column: span 1;
     grid-row: span 1;
   }
@@ -1715,60 +1725,109 @@ footer {
   </div>
 
   <div class="portfolio-grid reveal">
-    <div class="pf-card hero">
-      <div class="pf-bg lolla">
-        <div class="pf-bg-content"></div>
+
+    <!-- Fila 1: Hero video Lollapalooza (full width, 2 filas) -->
+    <div class="pf-card c12 r2">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline poster="Assets fotos/Lollapalloza Escenario principal.jpg">
+          <source src="Assets Videos/Timelap lollapalloza escenario principal.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="pf-overlay">
         <div class="pf-name">Lollapalooza 2024</div>
         <div class="pf-meta">Festival · Escenario principal · Santiago</div>
       </div>
     </div>
-    <div class="pf-card medium">
-      <div class="pf-bg afterlife">
-        <div class="pf-bg-content"></div>
-      </div>
+
+    <!-- Fila 3: Escenario dos Lolla (alto) + Paul Anka + Nissan -->
+    <div class="pf-card c7 r2">
+      <div class="pf-bg lolla2"></div>
       <div class="pf-overlay">
-        <div class="pf-name">Afterlife Chile</div>
-        <div class="pf-meta">Festival electrónico · Santiago</div>
+        <div class="pf-name">Lollapalooza — Escenario Secundario</div>
+        <div class="pf-meta">Festival · Santiago · 80.000 personas</div>
       </div>
     </div>
-    <div class="pf-card medium">
-      <div class="pf-bg panamericanos">
-        <div class="pf-bg-content"></div>
+    <div class="pf-card c5">
+      <div class="pf-bg paulanka"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Paul Anka en Chile</div>
+        <div class="pf-meta">Concierto · Producción integral</div>
+      </div>
+    </div>
+    <div class="pf-card c5">
+      <div class="pf-bg nissan"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Nissan Pavilion</div>
+        <div class="pf-meta">Corporativo · Carpa + Activación</div>
+      </div>
+    </div>
+
+    <!-- Fila 5: Panamericanos video + Copa Davis -->
+    <div class="pf-card c7">
+      <div class="pf-bg">
+        <video autoplay muted loop playsinline>
+          <source src="Assets Videos/carpas rosetta paragual panamericano.mp4" type="video/mp4">
+        </video>
       </div>
       <div class="pf-overlay">
         <div class="pf-name">Juegos Panamericanos 2023</div>
-        <div class="pf-meta">Deportivo · Graderías oficiales · Santiago</div>
+        <div class="pf-meta">Deportivo · Carpas oficiales · Santiago</div>
       </div>
     </div>
-    <div class="pf-card small">
-      <div class="pf-bg nissan">
-        <div class="pf-bg-content"></div>
-      </div>
+    <div class="pf-card c5">
+      <div class="pf-bg copas"></div>
       <div class="pf-overlay">
-        <div class="pf-name">Nissan Pavilion</div>
-        <div class="pf-meta">Corporativo · Activación</div>
+        <div class="pf-name">Copa Davis Chile</div>
+        <div class="pf-meta">Deportivo · Graderías + Infraestructura</div>
       </div>
     </div>
-    <div class="pf-card wide">
-      <div class="pf-bg fauna">
-        <div class="pf-bg-content"></div>
-      </div>
+
+    <!-- Fila 6: Coke Studio + Generadores + Valle Nevado -->
+    <div class="pf-card c6">
+      <div class="pf-bg cokestudio"></div>
       <div class="pf-overlay">
-        <div class="pf-name">Fauna Primavera</div>
-        <div class="pf-meta">Festival · Escenario + VIP</div>
+        <div class="pf-name">Coke Studio Chile</div>
+        <div class="pf-meta">Festival · Escenario + Logística</div>
       </div>
     </div>
-    <div class="pf-card medium">
-      <div class="pf-bg heroes">
-        <div class="pf-bg-content"></div>
-      </div>
+    <div class="pf-card c3">
+      <div class="pf-bg generadores"></div>
       <div class="pf-overlay">
-        <div class="pf-name">Héroes Run</div>
-        <div class="pf-meta">Deportivo · Pórticos + Meta</div>
+        <div class="pf-name">Energía de Respaldo</div>
+        <div class="pf-meta">Generadores · Flota propia</div>
       </div>
     </div>
+    <div class="pf-card c3">
+      <div class="pf-bg vallenevado"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Valle Nevado</div>
+        <div class="pf-meta">Corporativo · Stand + Evento</div>
+      </div>
+    </div>
+
+    <!-- Fila 7: Vendimia + Estadio Nacional + Dunalaster -->
+    <div class="pf-card c5">
+      <div class="pf-bg vendimia"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Vendimia Valle del Maipo</div>
+        <div class="pf-meta">Festival · Escenario + Estructura</div>
+      </div>
+    </div>
+    <div class="pf-card c4">
+      <div class="pf-bg estadio"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Estadio Nacional</div>
+        <div class="pf-meta">Deportivo · Torres de piso</div>
+      </div>
+    </div>
+    <div class="pf-card c3">
+      <div class="pf-bg dunalaster"></div>
+      <div class="pf-overlay">
+        <div class="pf-name">Colegio Dunalaster</div>
+        <div class="pf-meta">Educacional · Tarima + Producción</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
