@@ -741,21 +741,21 @@ section {
   margin-top: 4px;
 }
 /* fondos */
-.pf-bg.lolla        { background-image: url('Assets fotos/Lollapalloza Escenario principal.jpg'); }
-.pf-bg.lolla2       { background-image: url('Assets fotos/Escenario dos Lollapalloza.jpg'); }
-.pf-bg.paulanka     { background-image: url('Assets fotos/PAUL ANKA EN CHILE.jpg'); }
-.pf-bg.nissan       { background-image: url('Assets fotos/Evento nissan carpa.jpg'); }
-.pf-bg.copas        { background-image: url('Assets fotos/Graderias Copa david.jpg'); }
-.pf-bg.cokestudio   { background-image: url('Assets fotos/festival coke studio chile.jpg'); }
-.pf-bg.generadores  { background-image: url('Assets fotos/Generadores energia.jpg'); }
-.pf-bg.vallenevado  { background-image: url('Assets fotos/Stand centro de evento valle nevado.jpg'); }
-.pf-bg.vendimia     { background-image: url('Assets fotos/Escenario Vendimia Valle del Maipo.jpg'); }
-.pf-bg.estadio      { background-image: url('Assets fotos/Torres de piso estadio nacional.jpg'); }
-.pf-bg.dunalaster   { background-image: url('Assets fotos/Tarima colegio Dunalastair.jpg'); }
-.pf-bg.lollakids    { background-image: url('Assets fotos/lollakids escenario para ninos.jpg'); }
-.pf-bg.vangogh      { background-image: url('Assets fotos/Foto evento vangogh.jpg'); }
-.pf-bg.camiones     { background-image: url('Assets fotos/Camiones Rosetta.jpg'); }
-.pf-bg.panamericanos2 { background-image: url('Assets fotos/ramplas aeropuerto juegos panamericanos.jpg'); }
+.pf-bg.lolla.bg-loaded        { background-image: url('Assets fotos/Lollapalloza Escenario principal.jpg'); }
+.pf-bg.lolla2.bg-loaded       { background-image: url('Assets fotos/Escenario dos Lollapalloza.jpg'); }
+.pf-bg.paulanka.bg-loaded     { background-image: url('Assets fotos/PAUL ANKA EN CHILE.jpg'); }
+.pf-bg.nissan.bg-loaded       { background-image: url('Assets fotos/Evento nissan carpa.jpg'); }
+.pf-bg.copas.bg-loaded        { background-image: url('Assets fotos/Graderias Copa david.jpg'); }
+.pf-bg.cokestudio.bg-loaded   { background-image: url('Assets fotos/festival coke studio chile.jpg'); }
+.pf-bg.generadores.bg-loaded  { background-image: url('Assets fotos/Generadores energia.jpg'); }
+.pf-bg.vallenevado.bg-loaded  { background-image: url('Assets fotos/Stand centro de evento valle nevado.jpg'); }
+.pf-bg.vendimia.bg-loaded     { background-image: url('Assets fotos/Escenario Vendimia Valle del Maipo.jpg'); }
+.pf-bg.estadio.bg-loaded      { background-image: url('Assets fotos/Torres de piso estadio nacional.jpg'); }
+.pf-bg.dunalaster.bg-loaded   { background-image: url('Assets fotos/Tarima colegio Dunalastair.jpg'); }
+.pf-bg.lollakids.bg-loaded    { background-image: url('Assets fotos/lollakids escenario para ninos.jpg'); }
+.pf-bg.vangogh.bg-loaded      { background-image: url('Assets fotos/Foto evento vangogh.jpg'); }
+.pf-bg.camiones.bg-loaded     { background-image: url('Assets fotos/Camiones Rosetta.jpg'); }
+.pf-bg.panamericanos2.bg-loaded { background-image: url('Assets fotos/ramplas aeropuerto juegos panamericanos.jpg'); }
 
 /* —— DIFERENCIADORES —— */
 #diferenciadores {
@@ -1762,7 +1762,7 @@ function toggleCorpMute() {
     <!-- Fila 1: Hero video Lollapalooza (full width, 2 filas) -->
     <div class="pf-card c12 r2">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline poster="Assets fotos/Lollapalloza Escenario principal.jpg">
+        <video muted loop playsinline preload="metadata" poster="Assets fotos/Lollapalloza Escenario principal.jpg" class="lazy-video">
           <source src="Assets Videos/Timelap lollapalloza escenario principal.mp4" type="video/mp4">
         </video>
       </div>
@@ -1775,7 +1775,7 @@ function toggleCorpMute() {
     <!-- Fila 3: Escenario dos Lolla (alto) + Paul Anka + Nissan -->
     <div class="pf-card c7 r2">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/TIMELAPSE CARPA LOLLAPALOOZA 2024.mp4" type="video/mp4">
         </video>
       </div>
@@ -1793,7 +1793,7 @@ function toggleCorpMute() {
     </div>
     <div class="pf-card c5">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline poster="Assets fotos/Evento nissan carpa.jpg">
+        <video muted loop playsinline preload="none" poster="Assets fotos/Evento nissan carpa.jpg" class="lazy-video">
           <source src="Assets Videos/Video Evento Nissan.mp4" type="video/mp4">
         </video>
       </div>
@@ -1806,7 +1806,7 @@ function toggleCorpMute() {
     <!-- Fila 5: Panamericanos video + Copa Davis -->
     <div class="pf-card c7">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/carpas rosetta paragual panamericano.mp4" type="video/mp4">
         </video>
       </div>
@@ -1879,7 +1879,7 @@ function toggleCorpMute() {
     </div>
     <div class="pf-card c7">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/Expomin Energia.mp4" type="video/mp4">
         </video>
       </div>
@@ -1892,7 +1892,7 @@ function toggleCorpMute() {
     <!-- Fila 9: Afterlife -->
     <div class="pf-card c12">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/VIDEO ESCENARIO Y ENERGIA ROSETTA PRODUCCIONES AFTERLIFE CHILE.mp4" type="video/mp4">
         </video>
       </div>
@@ -1905,7 +1905,7 @@ function toggleCorpMute() {
     <!-- Fila 10: Van Gogh + Camiones -->
     <div class="pf-card c7">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline poster="Assets fotos/Foto evento vangogh.jpg">
+        <video muted loop playsinline preload="none" poster="Assets fotos/Foto evento vangogh.jpg" class="lazy-video">
           <source src="Assets Videos/Video Evento Vangogh chile.mp4" type="video/mp4">
         </video>
       </div>
@@ -1925,7 +1925,7 @@ function toggleCorpMute() {
     <!-- Fila 11: Cierre Perimetral + Lift Elevador + Rampas Panamericanos -->
     <div class="pf-card c5">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/Cierre perimetral aeropuerto juegos panamericanos.mp4" type="video/mp4">
         </video>
       </div>
@@ -1936,7 +1936,7 @@ function toggleCorpMute() {
     </div>
     <div class="pf-card c4">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/Concierto Cantante Lift Elevador.mp4" type="video/mp4">
         </video>
       </div>
@@ -1956,7 +1956,7 @@ function toggleCorpMute() {
     <!-- Fila 12: Rafael Nadal — ancho completo -->
     <div class="pf-card c12">
       <div class="pf-bg">
-        <video autoplay muted loop playsinline>
+        <video muted loop playsinline preload="none" class="lazy-video">
           <source src="Assets Videos/Graderia evento teniis rafael andal.mp4" type="video/mp4">
         </video>
       </div>
@@ -2232,6 +2232,39 @@ var observer = new IntersectionObserver(function(entries) {
 
 document.querySelectorAll('.reveal').forEach(function(el) {
   observer.observe(el);
+});
+
+// Lazy play/pause para videos del portafolio
+var videoObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    var v = entry.target;
+    if (entry.isIntersecting) {
+      if (v.paused) v.play().catch(function(){});
+    } else {
+      if (!v.paused) v.pause();
+    }
+  });
+}, { threshold: 0.15, rootMargin: '100px' });
+
+document.querySelectorAll('.lazy-video').forEach(function(v) {
+  videoObserver.observe(v);
+});
+
+// Lazy load para backgrounds CSS del portafolio
+var bgObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('bg-loaded');
+      bgObserver.unobserve(entry.target);
+    }
+  });
+}, { rootMargin: '200px' });
+
+var photoBgs = ['lolla','lolla2','paulanka','nissan','copas','cokestudio','generadores','vallenevado','vendimia','estadio','dunalaster','lollakids','vangogh','camiones','panamericanos2'];
+photoBgs.forEach(function(cls) {
+  document.querySelectorAll('.pf-bg.' + cls).forEach(function(el) {
+    bgObserver.observe(el);
+  });
 });
 </script>
 </body>
