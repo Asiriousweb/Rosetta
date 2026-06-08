@@ -1188,7 +1188,7 @@ footer {
         <div class="mega-label">Nuestros servicios</div>
         <div class="mega-grid-3">
           <div class="mega-item" onclick="scrollTo2('servicios')">
-            <span class="mega-icon">️</span>
+            <span class="mega-icon"></span>
             <div class="mega-item-title">Estructuras</div>
             <div class="mega-item-sub">Escenarios, tarimas, torres, pórticos, graderías, ascensores</div>
           </div>
@@ -1234,7 +1234,7 @@ footer {
             <div class="mega-item-sub">Festivales, conciertos, runs deportivos</div>
           </div>
           <div class="mega-item" onclick="activateTab('mineria')">
-            <span class="mega-icon">️</span>
+            <span class="mega-icon"></span>
             <div class="mega-item-title">Minería e industria</div>
             <div class="mega-item-sub">Estructuras industriales, generadores potentes</div>
           </div>
@@ -1315,7 +1315,7 @@ footer {
   <div class="mobile-nav-section">
     <div class="mobile-nav-title">Servicios</div>
     <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
-      <span class="mnl-icon">️</span>
+      <span class="mnl-icon"></span>
       <div><div>Estructuras</div><div class="mnl-sub">Escenarios, tarimas, torres, pórticos</div></div>
     </div>
     <div class="mobile-nav-link" onclick="closeMobile(); scrollTo2('servicios')">
@@ -1338,7 +1338,7 @@ footer {
       <div><div>Eventos masivos</div><div class="mnl-sub">Festivales, conciertos, runs</div></div>
     </div>
     <div class="mobile-nav-link" onclick="closeMobile(); activateTab('mineria')">
-      <span class="mnl-icon">️</span>
+      <span class="mnl-icon"></span>
       <div><div>Minería e industria</div><div class="mnl-sub">Generadores, estructuras faenas</div></div>
     </div>
     <div class="mobile-nav-link" onclick="closeMobile(); activateTab('corporativo')">
@@ -1368,7 +1368,7 @@ footer {
 
   <div class="hero-industries">
     <div class="ind-pill active" onclick="activateTab('eventos')"> Eventos</div>
-    <div class="ind-pill" onclick="activateTab('mineria')">️ Minería</div>
+    <div class="ind-pill" onclick="activateTab('mineria')"> Minería</div>
     <div class="ind-pill" onclick="activateTab('corporativo')"> Corporativo</div>
     <div class="ind-pill" onclick="activateTab('deportivo')"> Deportivo</div>
   </div>
@@ -1438,12 +1438,27 @@ footer {
 </div>
 
 <!-- VIDEO CORPORATIVO -->
-<div id="video-corporativo" style="position:relative;width:100%;background:#0d0d0d;overflow:hidden;line-height:0;">
-  <video autoplay muted loop playsinline style="width:100%;display:block;max-height:85vh;object-fit:cover;">
+<div id="video-corporativo" style="position:relative;width:100%;height:90vh;background:#0d0d0d;overflow:hidden;">
+  <video id="corp-video" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <source src="Assets Videos/Video corporativo rosetta.mp4" type="video/mp4">
   </video>
-  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.6) 0%,transparent 50%);pointer-events:none;"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+  <!-- Botón mute -->
+  <button id="corp-mute-btn" onclick="toggleCorpMute()" style="position:absolute;bottom:28px;right:28px;background:rgba(13,13,13,0.6);border:1px solid rgba(255,255,255,0.25);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:background 0.2s;z-index:10;">
+    <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg id="icon-unmuted" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </button>
 </div>
+<script>
+function toggleCorpMute() {
+  var v = document.getElementById('corp-video');
+  var mi = document.getElementById('icon-muted');
+  var ui = document.getElementById('icon-unmuted');
+  v.muted = !v.muted;
+  mi.style.display = v.muted ? 'block' : 'none';
+  ui.style.display = v.muted ? 'none' : 'block';
+}
+</script>
 
 <!-- INDUSTRIAS -->
 <section id="industrias">
@@ -1462,7 +1477,7 @@ footer {
       <span class="tab-icon"></span> Eventos masivos
     </button>
     <button class="ind-tab" onclick="activateTab('mineria')" id="tab-mineria">
-      <span class="tab-icon">️</span> Minería e industria
+      <span class="tab-icon"></span> Minería e industria
     </button>
     <button class="ind-tab" onclick="activateTab('corporativo')" id="tab-corporativo">
       <span class="tab-icon"></span> Corporativo
@@ -1531,7 +1546,7 @@ footer {
       </div>
     </div>
     <div class="ind-card reveal reveal-delay-1">
-      <div class="ind-card-icon">️</div>
+      <div class="ind-card-icon"></div>
       <div class="ind-card-title">Estructuras en faenas</div>
       <div class="ind-card-desc">Plataformas de trabajo, andamios certificados y estructuras modulares para operaciones en terreno. Normativa vigente Sernageomin.</div>
       <div class="ind-card-tags">
@@ -1595,7 +1610,7 @@ footer {
       </div>
     </div>
     <div class="ind-card reveal reveal-delay-3">
-      <div class="ind-card-icon">️</div>
+      <div class="ind-card-icon"></div>
       <div class="ind-card-title">Activaciones de marca</div>
       <div class="ind-card-desc">Estructuras llamativas para activaciones en vía pública, malls y espacios abiertos. Pórticos de imagen, torres de banners y stands de gran formato.</div>
       <div class="ind-card-tags">
@@ -1665,7 +1680,7 @@ footer {
   <div class="services-grid">
     <div class="service-card reveal">
       <div class="service-card-num">01</div>
-      <div class="service-card-icon">️</div>
+      <div class="service-card-icon"></div>
       <div class="service-card-title">Estructuras</div>
       <div class="service-card-desc">Sistemas de andamio modular certificados para cargas de escenario, audio y luces.</div>
       <div class="service-card-items">
@@ -1905,7 +1920,7 @@ footer {
         </div>
       </a>
       <a href="mailto:contacto@rosettaproducciones.com" class="contact-channel">
-        <span class="contact-channel-icon">️</span>
+        <span class="contact-channel-icon"></span>
         <div>
           <div class="contact-channel-label">Email</div>
           <div class="contact-channel-value">contacto@rosettaproducciones.com</div>
